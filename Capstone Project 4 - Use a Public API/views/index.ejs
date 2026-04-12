@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <title>Prayer Pal | Islamic Prayer Times</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-navbar bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Prayer Pal</a>
+        <button cklass="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Dropdown
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            </li>
+        </ul>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        </div>
+    </div>
+</nav>
+    <div class="container text-center text-light my-5">
+        <div class="grid">
+            <div class="box system-info">
+                <h4>System</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">{Date/Time}</li>  
+                </ul>
+            </div>
+            <div class="box weather">
+                <h4>Weather</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">Location: <%= weatherData.timezone %></li>
+                    <li class="list-group-item">Temperature: <%= weatherData.current_weather.temperature %>F</li>
+                    <li class="list-group-item">Wind Speed: <%= weatherData.current_weather.windspeed %>mph</li>
+                    <li class="list-group-item">Conditions: <%= conditions %></li>
+                </ul>
+            </div>
+            <div class="box prayer-times">
+                <h4>Prayer</h4>
+                <h5>Location: Chicago</h5>
+                <ul class="list-group my-3">
+                    <li class="list-group-item">Fajr: <%= prayerData.Fajr %></li>
+                    <li class="list-group-item">Dhuhr: <%= prayerData.Dhuhr %></li>
+                    <li class="list-group-item">Asr: <%= prayerData.Asr %></li>
+                    <li class="list-group-item">Maghrib: <%= prayerData.Maghrib %></li>
+                    <li class="list-group-item">Isha: <%= prayerData.Isha %></li>
+                </ul>
+                <ul class="list-group my-3">
+                    <li class="list-group-item">Sunrise: <%= prayerData.Sunrise %></li>
+                    <li class="list-group-item">Midnight: <%= prayerData.Midnight %></li>
+                    <li class="list-group-item">First Third: <%= prayerData.Firstthird %></li>
+                    <li class="list-group-item">Last Third: <%= prayerData.Lastthird %></li>
+                </ul>
+            </div>
+            <div class="box todo"><h4>ToDo</h4></div>
+            <div class="box links"><h4>Links</h4></div>
+        </div>
+    </div>
+</body>
+</html>

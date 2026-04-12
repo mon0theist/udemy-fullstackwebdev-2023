@@ -1,0 +1,7 @@
+App Brewery Secrets API
+
+username: mon0theist
+password: password
+
+API Key: 75ba2246-8c77-440c-8829-9ea0c39ec275
+Token: e3e88fc6-044c-4a77-bcbb-a3b9c12a8be3

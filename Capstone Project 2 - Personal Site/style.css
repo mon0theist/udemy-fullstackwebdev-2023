@@ -1,0 +1,65 @@
+/* CSS HEX | Color palette extraced from image via coolors.co */
+:root {
+  --saddle-brown: #79492Bff;
+  --dusty-grape: #6A668Fff;
+  --rich-mahogany: #3B0C0Eff;
+  --prussian-blue: #1B2336ff;
+  --black: #000000ff;
+}
+
+/* Construction */
+.container, div {
+    border: 1px solid red;
+}
+
+.row {
+  border: 1px solid blue;
+}
+
+.column {
+  border: 1px solid green;
+}
+
+/* Styles */
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+h1 {
+  font-family: "Space Mono", monospace;
+}
+
+h3 {
+  color: var(--rich-mahogany);
+}
+
+#heythere {
+  color: var(--rich-mahogany)!important;
+}
+
+#hero {
+  background-image: url(./assets/img/hacker.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: whitesmoke;
+  height: 65vh;
+}
+
+.highlight {
+    background-color: black; /* The highlight color */
+    padding: 0 2px;
+}
+
+#pfp {
+  width: 250px;
+  border-radius: 100%;
+}
+
+#tinytext {
+  font-size: 0.75rem;
+  margin-top: -25px;
+  margin-left: 83px;
+}
+

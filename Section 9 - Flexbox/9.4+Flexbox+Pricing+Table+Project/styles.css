@@ -1,0 +1,58 @@
+/* Default styles apply to everything UNTIL a media query overrides it */
+/* Could start with mobile-first or desktop-first as the default, then use 
+media queries to adjust for screen sizes */
+
+/* Current best practice is to build mobile-first with min-width, but for the purpose of this 
+exercise I'm going to do Desktop-first with max-width */
+
+/* Default styles */
+body {
+        font-family: "Sono", sans-serif;
+}
+
+.pricing-container{
+        display: flex;
+        flex-shrink: 1;
+        gap: 10px;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+}
+
+.pricing-plan {
+        background-color: lightgray;
+        text-align: center;
+        padding: 10px;
+}
+
+.plan-title {
+        font-weight: bold;
+        font-size: 1.5rem;
+}
+
+.plan-price {
+        font-weight: bold;
+        font-size: 2rem;
+}
+
+.plan-features {
+        list-style-type: none;
+}
+
+.plan-button {
+        background-color: orange;
+        color: white;
+        border: none;
+        padding: 5px;
+        text-decoration: none;
+        border-radius: 5px;
+}
+
+/* Media queries */
+/* Hint: What can you do with a media query and flexbox? */
+@media only screen and (max-width: 975px) {
+        .pricing-container {
+                flex-direction: column;
+                height: auto;
+        }
+}

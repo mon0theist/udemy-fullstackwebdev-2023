@@ -1,0 +1,57 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container my-5">
+  <div class="p-5 text-center bg-body-tertiary rounded-3">
+    <h1 class="text-body-emphasis">Burns Blog</h1>
+    <p class="lead">
+      Barely coherent ramblings about tech, news,
+      <code>code</code>, and more
+    </p>
+  </div>
+</div>
+<div class="container my-3">
+    <div class="row text-center">
+        <div class="col">
+            <h2>Posts</h2>
+        </div>
+    </div>
+    <% for (let i = 0; i < blogPosts.length; i++) { %>
+    <div class="row border">
+        <div class="col">
+            <h5>Author: <%= blogPosts[i].author %></h5>
+            <p><%= blogPosts[i].postContent %></p>
+        </div>
+    </div>
+    <hr>
+    <% } %>    
+</div>
+<div class="container">
+  <form action="/post" method="POST">
+    <div class="mb-3">
+      <label for="username" class="form-label"
+        >Username (Email Address):</label
+      >
+      <input
+        type="email"
+        class="form-control"
+        id="username"
+        name="author"
+        placeholder="name@example.com"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="post-content" class="form-label"
+        >Post Contents:</label
+      >
+      <textarea
+        class="form-control"
+        id="post-content"
+        rows="5"
+        name="postContent"
+      ></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<%- include("partials/footer.ejs") %>

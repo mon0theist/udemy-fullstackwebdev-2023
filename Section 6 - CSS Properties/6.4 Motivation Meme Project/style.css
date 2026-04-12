@@ -1,0 +1,37 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+img {
+    border: 5px solid white;
+}
+
+h1 {
+    color: goldenrod;
+    text-transform: uppercase;
+}
+
+.poster-main {
+    text-align: center;
+    margin-top: 40px
+}
+
+.libre-baskerville-regular {
+    font-family: "Libre Baskerville", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.libre-baskerville-bold {
+    font-family: "Libre Baskerville", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.libre-baskerville-regular-italic {
+    font-family: "Libre Baskerville", serif;
+    font-weight: 400;
+    font-style: italic;
+}
+

@@ -1,0 +1,44 @@
+body {
+    background-image: url('/img/pattern_tribal_blackyellow.png');
+}
+
+/* h1 {
+    color: red;
+} */
+
+.box {
+    background-color: #212529;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2rem;
+    min-height: 80vh;
+}
+
+.system-info { 
+    grid-column: 1; 
+    grid-row: 1; 
+} 
+
+.weather { 
+    grid-column: 1; 
+    grid-row: 2; 
+} 
+
+.prayer-times { 
+    grid-column: 2; 
+    grid-row: 1 / span 2; 
+} 
+
+.todo { 
+    grid-column: 3; 
+    grid-row: 1; 
+} 
+
+.links { 
+    grid-column: 3; 
+    grid-row: 2; 
+}
