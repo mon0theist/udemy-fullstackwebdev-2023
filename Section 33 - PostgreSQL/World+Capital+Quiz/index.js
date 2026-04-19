@@ -15,20 +15,19 @@ const db = new pg.Client({
 
 db.connect();
 
-// technically this doesn't have to be commented out
-// since it gets overwritten later in the db.query
-// let quiz = [
-//   { country: "France", capital: "Paris" },
-//   { country: "United Kingdom", capital: "London" },
-//   { country: "United States of America", capital: "New York" },
-// ];
+// gets overwritten later
+let quiz = [
+  { country: "France", capital: "Paris" },
+  { country: "United Kingdom", capital: "London" },
+  { country: "United States of America", capital: "New York" },
+];
 
 db.query("SELECT * FROM capitals", (err, res) => {
   if (err) {
     console.error("Error executing query", err.stack);
   }
   else {
-    let quiz = res.rows;
+    quiz = res.rows;
   }
   db.end();
 });
