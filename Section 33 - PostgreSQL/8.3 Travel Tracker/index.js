@@ -54,8 +54,24 @@ app.post("/add", async (req, res) => {
     let country = req.body.country;
     // query db with submitted form data to get country code
     const country_result = await db.query("SELECT country_code FROM countries WHERE LOWER(country_name) = LOWER($1)", [country]);
-    console.log(country_result.rows);
-    // use query to update visisted_countries
+
+    // make sure an actual result came back
+    if (country_result.rows.length !== 0){
+      const countryCode = country_result.rows[0].country_code;
+      // use query to update visisted_countries with new country code
+      await db.query("INSERT INTO visited_countries (country_code) VALUES ($1)", [countryCode]);
+      console.log("visited_countries table updated")
+
+      let countries = [];
+      const result = await db.query("SELECT country_code FROM visited_countries");
+      for (var i = 0; i < result.rows.length; i++){
+        countries.push(result.rows[i].country_code);
+      }
+      console.log(countries);
+      };
+
+    // instead of res.render again
+    res.redirect("/");
   }
   catch (err) {
     console.error(err);
