@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./styles/main.css">
 </head>
 
+<!-- Switch/Add Family Member -->
 <body>
   <form class="tab-view tab-view-height-auto" action="/user" method="post">
     <% users.forEach(function(user) { %>
@@ -22,6 +23,7 @@
 
   </form>
 
+  <!-- Add Country -->
   <form action="/add" method="post">
     <input type="text" name="country" autofocus placeholder="<%= locals.error ? error :  'Enter country name'%>">
     <button type="submit" style="background-color: <%= color %>;">Add</button>

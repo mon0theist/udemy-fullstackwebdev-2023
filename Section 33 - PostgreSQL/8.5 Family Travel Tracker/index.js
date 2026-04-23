@@ -25,8 +25,12 @@ let users = [
 ];
 
 async function checkVisisted() {
-  const result = await db.query("SELECT country_code FROM visited_countries");
+  const result = await db.query(
+    "SELECT country_code FROM visited_countries WHERE user_id = $1",
+    [currentUserId],
+  );
   let countries = [];
+  // push object
   result.rows.forEach((country) => {
     countries.push(country.country_code);
   });
@@ -47,7 +51,7 @@ app.post("/add", async (req, res) => {
   try {
     const result = await db.query(
       "SELECT country_code FROM countries WHERE LOWER(country_name) LIKE '%' || $1 || '%';",
-      [input.toLowerCase()]
+      [input.toLowerCase()],
     );
 
     const data = result.rows[0];
@@ -55,7 +59,7 @@ app.post("/add", async (req, res) => {
     try {
       await db.query(
         "INSERT INTO visited_countries (country_code) VALUES ($1)",
-        [countryCode]
+        [countryCode],
       );
       res.redirect("/");
     } catch (err) {
@@ -65,11 +69,36 @@ app.post("/add", async (req, res) => {
     console.log(err);
   }
 });
-app.post("/user", async (req, res) => {});
+
+// TODO:
+// Create users table: name and CSS color. pk Links to visited_countries table
+// modify visited_countries table
+// add user_id column to visited_countries
+
+// switch views between users
+app.post("/user", async (req, res) => {
+  console.log(req.body)
+  console.log(req.body.add)
+  if (req.body.add) {
+    res.render("new.ejs");
+  }
+  else if (req.body.user) {
+    res.redirect("/");
+  }
+  // query db for list of users
+  // users is a many-to-many join table? maybe?
+  // check value submitted to /user
+  // if existing user, display their countries
+  // if NOT existing user, render/redirect to the new.ejs
+  
+  // const result = await db.query();
+  res.redirect("/");
+});
 
 app.post("/new", async (req, res) => {
   //Hint: The RETURNING keyword can return the data that was inserted.
   //https://www.postgresql.org/docs/current/dml-returning.html
+  res.render("new.ejs");
 });
 
 app.listen(port, () => {
