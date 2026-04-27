@@ -9,7 +9,7 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "world",
-  password: "123456",
+  password: "postgres",
   port: 5432,
 });
 db.connect();
@@ -77,12 +77,13 @@ app.post("/add", async (req, res) => {
 
 // switch views between users
 app.post("/user", async (req, res) => {
-  console.log(req.body)
-  console.log(req.body.add)
   if (req.body.add) {
+    console.log(`adding new user: ${req.body.add}`);
     res.render("new.ejs");
   }
   else if (req.body.user) {
+    currentUserId = req.body.user;
+    console.log(`currentUserID changed: ${req.body.user}`);
     res.redirect("/");
   }
   // query db for list of users
@@ -92,13 +93,19 @@ app.post("/user", async (req, res) => {
   // if NOT existing user, render/redirect to the new.ejs
   
   // const result = await db.query();
-  res.redirect("/");
+  // res.redirect("/");
 });
 
 app.post("/new", async (req, res) => {
   //Hint: The RETURNING keyword can return the data that was inserted.
   //https://www.postgresql.org/docs/current/dml-returning.html
-  res.render("new.ejs");
+  const name = req.body.name;
+  const color = req.body.color;
+  const result = await db.query("INSERT INTO users (user_name, user_color) VALUES ($1, $2) RETURNING *",[req.body.name, req.body.color]);
+  console.log(result.rows);
+  users.push({id: result.rows[0].id, name: result.rows[0].user_name, color: result.rows[0].user_color});
+  console.log(users);
+  res.redirect("/");
 });
 
 app.listen(port, () => {
