@@ -17,8 +17,9 @@ db.connect();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+// defaults
 let currentUserId = 1;
-
+let color = 'teal';
 let users = [
   { id: 1, name: "Angela", color: "teal" },
   { id: 2, name: "Jack", color: "powderblue" },
@@ -42,7 +43,7 @@ app.get("/", async (req, res) => {
     countries: countries,
     total: countries.length,
     users: users,
-    color: "teal",
+    color: color,
   });
 });
 app.post("/add", async (req, res) => {
@@ -58,8 +59,8 @@ app.post("/add", async (req, res) => {
     const countryCode = data.country_code;
     try {
       await db.query(
-        "INSERT INTO visited_countries (country_code) VALUES ($1)",
-        [countryCode],
+        "INSERT INTO visited_countries (country_code, user_id) VALUES ($1, $2)",
+        [countryCode, currentUserId]
       );
       res.redirect("/");
     } catch (err) {
@@ -70,37 +71,24 @@ app.post("/add", async (req, res) => {
   }
 });
 
-// TODO:
-// Create users table: name and CSS color. pk Links to visited_countries table
-// modify visited_countries table
-// add user_id column to visited_countries
-
 // switch views between users
 app.post("/user", async (req, res) => {
   if (req.body.add) {
-    console.log(`adding new user: ${req.body.add}`);
+    console.log(`adding new user...`);
     res.render("new.ejs");
   }
   else if (req.body.user) {
     currentUserId = req.body.user;
-    console.log(`currentUserID changed: ${req.body.user}`);
+    const colorQuery = await db.query("SELECT user_color FROM users WHERE id = $1", [currentUserId]);
+    color = colorQuery.rows[0].user_color;
+    console.log(`currentUserID changed: ${req.body.user}, color: ${color}`);
     res.redirect("/");
   }
-  // query db for list of users
-  // users is a many-to-many join table? maybe?
-  // check value submitted to /user
-  // if existing user, display their countries
-  // if NOT existing user, render/redirect to the new.ejs
-  
-  // const result = await db.query();
-  // res.redirect("/");
 });
 
 app.post("/new", async (req, res) => {
   //Hint: The RETURNING keyword can return the data that was inserted.
   //https://www.postgresql.org/docs/current/dml-returning.html
-  const name = req.body.name;
-  const color = req.body.color;
   const result = await db.query("INSERT INTO users (user_name, user_color) VALUES ($1, $2) RETURNING *",[req.body.name, req.body.color]);
   console.log(result.rows);
   users.push({id: result.rows[0].id, name: result.rows[0].user_name, color: result.rows[0].user_color});
