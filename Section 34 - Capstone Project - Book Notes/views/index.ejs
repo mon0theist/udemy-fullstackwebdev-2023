@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burns Book Blog</title>
+</head>
+<body>
+    <h1>Burns Book Blog</h1>
+
+    <ul>
+        <% books.forEach(book => { %>
+            <li><strong><%= book.title %></strong> by <%= book.author %></li>
+        <% }) %>
+    </ul>
+</body>
+</html>
