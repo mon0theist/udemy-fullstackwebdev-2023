@@ -2,27 +2,20 @@
 
 <h1>Burns Book Blog</h1>
 
-<h4><a href="/edit">EDIT PAGE</a></h4>
+<h4><a href="/new">ADD NEW BOOK</a></h4>
 
-<form action="/add" method="post">
-    <input type="text" name="newBookTitle" placeholder="Book Title">
-    <input type="text" name="newBookAuthor" placeholder="Book Author">
-    <select name="rating" id="rating">
-        <option value="1">⭐</option>
-        <option value="2">⭐⭐</option>
-        <option value="3">⭐⭐⭐</option>
-        <option value="4">⭐⭐⭐⭐</option>
-        <option value="5">⭐⭐⭐⭐⭐</option>
-    </select>
-    <button type="submit">Add</button>
-</form>
 
-<ul>
+<a href="/edit">
     <% books.forEach(book => { %>
-    <li><img src="<%= book.cover_url %>" alt="Cover for <%= book.title %>"></li>
-    <li><strong><%= book.title %></strong> by <%= book.author %></li>
-    <li><%= book.summary %></li>
+        <div id="<%= book.id %>">
+            <ul style="text-decoration: none; color: inherit;">
+                <li><img src="<%= book.cover_url %>" alt="Cover for <%= book.title %>"></li>
+                <li><strong><%= book.title %></strong> by <%= book.author %></li>
+                <li><%= book.summary %></li>
+            </ul>
+        </div>
     <% }) %>
-</ul>
+</a>
+
 
 <%- include('partials/footer.ejs'); -%>

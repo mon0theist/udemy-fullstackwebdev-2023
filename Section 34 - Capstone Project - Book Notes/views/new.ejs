@@ -1,0 +1,42 @@
+<%- include('partials/header.ejs'); -%>
+
+<h2>Add New Book</h2>
+
+
+<form action="/add" method="post">
+    <div>
+        <label for="title">Title:</label>
+        <input id="title" type="text" name="newBookTitle" placeholder="Book Title">
+    </div>
+    <div>
+        <label for="author">Author:</label>
+        <input type="text" name="newBookAuthor" placeholder="Book Author">
+    </div>
+    <div>
+        <label for="rating">Rating:</label>
+        <select name="rating" id="rating">
+        <option value="1">⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+    </select>
+    </div>
+    <!-- <div>
+        <label for="yrpub">Year Published:</label>
+        <input type="text" id="yrpub" name="yrpub" placeholder="Year Published">
+    </div> -->
+    <div>
+        <label for="yrread">Year Read:</label>
+        <input type="text" name="yrread" placeholder="Year Read">
+    </div>
+    <div>
+        <label for="summary">Summary:</label>
+        <textarea name="summary" id="summary"></textarea>
+    </div>
+    
+    <button type="submit">Add</button>
+</form>
+
+
+<%- include('partials/footer.ejs'); -%>

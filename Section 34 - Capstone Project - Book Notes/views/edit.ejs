@@ -38,6 +38,7 @@
       <label for="summary">Summary: </label>
       <textarea name="summary" id="summary"></textarea>
     </div>
+    <button type="submit">Submit</button>
 </form>
 
 
@@ -45,7 +46,7 @@
 <h3><%= book.author %></h3>
 <h4><%= book.yr_pub %></h4>
 <h4><%= book.yr_read %></h4>
-<h4><%= book.rating %></h4>
+<h4><%= "⭐".repeat(book.rating) %></h4>
 <p><%= book.summary %></p>
 <img src="<%= book.cover_url %>" alt="Book cover">
 
