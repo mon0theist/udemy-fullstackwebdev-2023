@@ -8,7 +8,7 @@
 <a href="/edit">
     <% books.forEach(book => { %>
         <div id="<%= book.id %>">
-            <ul style="text-decoration: none; color: inherit;">
+            <ul>
                 <li><img src="<%= book.cover_url %>" alt="Cover for <%= book.title %>"></li>
                 <li><strong><%= book.title %></strong> by <%= book.author %></li>
                 <li><%= book.summary %></li>
