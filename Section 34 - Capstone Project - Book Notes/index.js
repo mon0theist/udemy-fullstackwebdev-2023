@@ -88,19 +88,30 @@ app.post("/add", async (req, res) => {
 
 // view/edit book info
 app.get("/edit", async (req, res) => {
-    const books = await getBooks();
-    const book = books[0];
+    const result = await db.query(`
+        SELECT * FROM finished_books WHERE id = $1
+    `,[req.query.id]);
+    const book = result.rows[0];
+    console.log(book);
 
     res.render("edit.ejs", {
         book: book,
     });
 });
 
-// submit changes
 app.post("/edit", async (req, res) => {
+    const id = req.query.id;
+    console.log("id:", id)
+    console.log(req.body);
+    // const query = await db.query(`
+    //     UPDATE finished_books
+    //     SET title = $1, author = $2, yr_pub = $3, yr_read = $4, rating = $5, summary = $6, cover_url = $7
+    //     WHERE id = $8;
+    // `,
+    // [req.body.book.title, req.body.book.author, req.body.book.yr_pub, req.body.book.yr_read, req.body.book.rating, req.body.book.summary, req.body.book.cover_url]);
 
+    res.redirect("/");
 });
-
 
 // run
 app.listen(port, () => {

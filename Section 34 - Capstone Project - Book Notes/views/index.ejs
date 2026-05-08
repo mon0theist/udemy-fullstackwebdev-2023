@@ -5,8 +5,9 @@
 <h4><a href="/new">ADD NEW BOOK</a></h4>
 
 
-<a href="/edit">
-    <% books.forEach(book => { %>
+
+<% books.forEach(book => { %>
+    <a href="/edit?id=<%= book.id%>">
         <div id="<%= book.id %>">
             <ul>
                 <li><img src="<%= book.cover_url %>" alt="Cover for <%= book.title %>"></li>
@@ -14,8 +15,8 @@
                 <li><%= book.summary %></li>
             </ul>
         </div>
-    <% }) %>
-</a>
+    </a>
+<% }) %>
 
 
 <%- include('partials/footer.ejs'); -%>
