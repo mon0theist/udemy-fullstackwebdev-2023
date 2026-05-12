@@ -2,9 +2,16 @@
 
 <h1>Burns Book Blog</h1>
 
-<a href="/">
+<div>
+  <a href="/">
     <button type="submit">Back</button>
-</a>
+  </a>
+
+  <a href="/delete" method="post">
+    <button type="submit">Delete Book</button>
+  </a>
+</div>
+
 
 <form action="/edit?id=<%= book.id %>" method="post">
   <div>
@@ -36,6 +43,11 @@
         <option value="4">⭐⭐⭐⭐</option>
         <option value="5">⭐⭐⭐⭐⭐</option>
       </select>
+    </div>
+    
+    <div>
+      <label for="cover_url">Cover Image URL: </label>
+      <input type="text" id="cover_url" name="cover_url" value="<%= book.cover_url %>">
     </div>
 
     <div>

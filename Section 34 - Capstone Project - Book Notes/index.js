@@ -21,7 +21,7 @@ app.use(express.static("public"));
 
 // db query function(s)
 async function getBooks() {
-    const result = await db.query("SELECT * FROM finished_books");
+    const result = await db.query("SELECT * FROM finished_books ORDER BY id ASC");
     let books = [];
     result.rows.forEach((book => {
         books.push(book);
@@ -103,15 +103,23 @@ app.post("/edit", async (req, res) => {
     const id = req.query.id;
     console.log("id:", id)
     console.log(req.body);
-    // const query = await db.query(`
-    //     UPDATE finished_books
-    //     SET title = $1, author = $2, yr_pub = $3, yr_read = $4, rating = $5, summary = $6, cover_url = $7
-    //     WHERE id = $8;
-    // `,
-    // [req.body.book.title, req.body.book.author, req.body.book.yr_pub, req.body.book.yr_read, req.body.book.rating, req.body.book.summary, req.body.book.cover_url]);
+    console.log("title:", req.body.title);
+    const query = await db.query(`
+        UPDATE finished_books
+        SET title = $1, author = $2, yr_pub = $3, yr_read = $4, rating = $5, summary = $6, cover_url = $7
+        WHERE id = $8;
+    `,
+    [req.body.title, req.body.author, req.body.yr_pub, req.body.yr_read, req.body.rating, req.body.summary, req.body.cover_url, id]);
 
     res.redirect("/");
 });
+
+// delete
+app.post("/delete", async (req, res) => {
+    console.log(req.body);
+    res.redirect("/");
+});
+
 
 // run
 app.listen(port, () => {
