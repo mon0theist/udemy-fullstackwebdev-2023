@@ -6,10 +6,12 @@
   <a href="/">
     <button type="submit">Back</button>
   </a>
+</div>
 
-  <a href="/delete" method="post">
+<div>
+  <form action="/delete?id=<%= book.id %>" method="post">
     <button type="submit">Delete Book</button>
-  </a>
+  </form>
 </div>
 
 

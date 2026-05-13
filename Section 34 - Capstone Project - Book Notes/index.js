@@ -116,7 +116,12 @@ app.post("/edit", async (req, res) => {
 
 // delete
 app.post("/delete", async (req, res) => {
-    console.log(req.body);
+    const id = req.query.id;
+    const query = await db.query(`
+        DELETE FROM finished_books
+        WHERE id = $1    
+    `, [id]);
+    console.log(`Deleted: Book ID: ${id}`)
     res.redirect("/");
 });
 
