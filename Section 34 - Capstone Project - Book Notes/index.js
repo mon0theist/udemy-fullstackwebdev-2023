@@ -21,13 +21,21 @@ app.use(express.static("public"));
 
 // db query function(s)
 async function getBooks() {
-    const result = await db.query("SELECT * FROM finished_books ORDER BY id ASC");
     let books = [];
-    result.rows.forEach((book => {
-        books.push(book);
-        // console.log("Book found:", book);
-    }));
-    return books;
+    try {
+        const result = await db.query("SELECT * FROM finished_books ORDER BY id ASC");
+        result.rows.forEach((book => {
+            books.push(book);
+            // console.log("Book found:", book);
+        }));
+        return books;
+    }
+    catch (err) {
+        console.error(err);
+        return books;
+    }
+    
+    
 }
 
 // api query function(s)
@@ -81,48 +89,61 @@ app.post("/add", async (req, res) => {
         };
     }
     catch (err) {
-        console.log(err);
+        console.error(err);
         res.redirect("/");
     }
 });
 
 // view/edit book info
 app.get("/edit", async (req, res) => {
-    const result = await db.query(`
+    try {
+        const result = await db.query(`
         SELECT * FROM finished_books WHERE id = $1
-    `,[req.query.id]);
-    const book = result.rows[0];
-    console.log(book);
-
-    res.render("edit.ejs", {
-        book: book,
-    });
+        `,[req.query.id]);
+        const book = result.rows[0];
+        res.render("edit.ejs", {
+            book: book,
+        });
+    }
+    catch (err) {
+        console.error(err);
+        res.redirect("/");
+    }
 });
 
 app.post("/edit", async (req, res) => {
     const id = req.query.id;
-    console.log("id:", id)
-    console.log(req.body);
-    console.log("title:", req.body.title);
-    const query = await db.query(`
+    try {
+        const query = await db.query(`
         UPDATE finished_books
         SET title = $1, author = $2, yr_pub = $3, yr_read = $4, rating = $5, summary = $6, cover_url = $7
         WHERE id = $8;
-    `,
-    [req.body.title, req.body.author, req.body.yr_pub, req.body.yr_read, req.body.rating, req.body.summary, req.body.cover_url, id]);
+        `,
+        [req.body.title, req.body.author, req.body.yr_pub, req.body.yr_read, req.body.rating, req.body.summary, req.body.cover_url, id]);
 
-    res.redirect("/");
+        res.redirect("/");
+    }
+    catch (err) {
+        console.error(err);
+        res.redirect("/");
+    }
 });
 
 // delete
 app.post("/delete", async (req, res) => {
     const id = req.query.id;
-    const query = await db.query(`
+    try {
+        const query = await db.query(`
         DELETE FROM finished_books
         WHERE id = $1    
-    `, [id]);
-    console.log(`Deleted: Book ID: ${id}`)
-    res.redirect("/");
+        `, [id]);
+        console.log(`Deleted: Book ID: ${id}`)
+        res.redirect("/");
+    }
+    catch (err) {
+        console.error(err);
+        res.redirect("/");
+    }
 });
 
 

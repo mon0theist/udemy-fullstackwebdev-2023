@@ -1,12 +1,19 @@
 <%- include('partials/header.ejs'); -%>
 
-<h1>Burns Book Blog</h1>
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <h1>Burns Book Blog</h1>
+        </div>
+    </div>
+</div>
 
-<h4><a href="/new">ADD NEW BOOK</a></h4>
+<div class="container text-center">
+    <a href="/new" class="btn btn-primary">Add New Book</a>
+</div>
 
-
-
-<% books.forEach(book => { %>
+<div class="container">
+    <% books.forEach(book => { %>
     <a href="/edit?id=<%= book.id%>">
         <div id="<%= book.id %>">
             <ul>
@@ -16,7 +23,7 @@
             </ul>
         </div>
     </a>
-<% }) %>
-
+    <% }) %>
+</div>
 
 <%- include('partials/footer.ejs'); -%>
