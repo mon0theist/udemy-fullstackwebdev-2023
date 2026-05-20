@@ -2,23 +2,22 @@ import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
 import bcrypt from "bcrypt";
-import { resolveInclude } from "ejs";
 
 const app = express();
 const port = 3000;
 const saltRounds = 10;
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
+
 const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "secrets",
-  password: "postgres",
+  password: "123456",
   port: 5432,
 });
 db.connect();
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.render("home.ejs");
@@ -44,17 +43,16 @@ app.post("/register", async (req, res) => {
     if (checkResult.rows.length > 0) {
       res.send("Email already exists. Try logging in.");
     } else {
-      // pw hash
+      //hashing the password and saving it in the database
       bcrypt.hash(password, saltRounds, async (err, hash) => {
-        if (err){
-          console.error(`Error hashing pw: ${err}`);
-        }
-        else{
-          const result = await db.query(
-          "INSERT INTO users (email, password) VALUES ($1, $2)",
-          [email, hash]
+        if (err) {
+          console.error("Error hashing password:", err);
+        } else {
+          console.log("Hashed Password:", hash);
+          await db.query(
+            "INSERT INTO users (email, password) VALUES ($1, $2)",
+            [email, hash]
           );
-          console.log(result);
           res.render("secrets.ejs");
         }
       });
@@ -75,23 +73,20 @@ app.post("/login", async (req, res) => {
     if (result.rows.length > 0) {
       const user = result.rows[0];
       const storedHashedPassword = user.password;
-
       bcrypt.compare(loginPassword, storedHashedPassword, (err, result) => {
         if (err) {
-          console.error(`Error comparing passwords: ${err}`);
+          console.error("Error comparing passwords:", err);
         } else {
           if (result) {
-            res.render('secrets.ejs');
-          }
-          else {
-            res.send("Incorrect password");
+            res.render("secrets.ejs");
+          } else {
+            res.send("Incorrect Password");
           }
         }
-      })
-      }
-      else {
-        res.send("Incorrect Password");
-      }
+      });
+    } else {
+      res.send("User not found");
+    }
   } catch (err) {
     console.log(err);
   }
