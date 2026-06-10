@@ -1,0 +1,3 @@
+Everything in this section is done via codesandbox.io, as opposed to developing on our local machines, so there is no local code to commit.
+
+As such, there is no code in this section, as nothing is being written in our local environments.
