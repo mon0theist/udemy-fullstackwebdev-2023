@@ -92,3 +92,9 @@ temp/
 # -------------------------
 
 uploads/
+
+# -------------------------
+# Google OAuth info
+# -------------------------
+secrets_oauth.json
+secrets_oauth.png
